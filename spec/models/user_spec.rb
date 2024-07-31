@@ -6,6 +6,16 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    it "全て満たせば登録できる" do
+      expect(@user).to be_valid
+    end
+
+    it "nicknameが必須であること" do
+      @user.nickname = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Nickname can't be blank")
+    end
+
     it 'メールアドレスが必須であること' do
       @user.email = ''
       @user.valid?
@@ -33,6 +43,11 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = '00000'
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+    end
+    it 'パスワードは、6文字以上で登録可であること' do
+      @user.password = '000000a'
+      @user.password_confirmation = '000000a'
+      expect(@user).to be_valid
     end
     it 'パスワードとパスワード（確認）は、値の一致が必須であること' do
       @user.password = '123456'
