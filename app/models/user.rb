@@ -11,5 +11,6 @@ class User < ApplicationRecord
   validates :firstnamekana, presence: true
   validates :birthdate, presence: true
   validates_format_of :password, with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/, message: "は英字と数字を含めてください"
+  validates :lastnamekana, :firstnamekana, presence: true
   validates_format_of :lastnamekana, :firstnamekana, with: /\A[ァ-ヶー]+\z/, message: "は全角カタカナで入力してください"
 end

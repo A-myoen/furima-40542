@@ -6,10 +6,35 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    context '新規登録が成功' do
     it "全て満たせば登録できる" do
       expect(@user).to be_valid
     end
+    it 'パスワードが6文字以上半角英数字であれば登録できる' do
+      @user.password = '123abc'
+      @user.password_confirmation = '123abc'
+      expect(@user).to be_valid
+    end
+    it 'lastnameあれば登録できる' do
+      @user.lastname = '山田'
+      expect(@user).to be_valid
+    end
+    it 'firstnameあれば登録できる' do
+      @user.firstname = '陸太郎'
+      expect(@user).to be_valid
+    end
+    it 'firstnamekanaが全角カタカナであれば登録できる' do
+      @user.lastnamekana = 'ヤマダ'
+      expect(@user).to be_valid
+    end
+    it 'lastnamekanaが全角カタカナであれば登録できる' do
+      @user.firstnamekana = 'リクタロウ'
+      expect(@user).to be_valid
+    end
+  end
+  end
 
+    context '新規登録がうまくかないとき' do
     it "nicknameが必須であること" do
       @user.nickname = ''
       @user.valid?
@@ -55,5 +80,30 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
-  end
+    it 'firstnameが必須' do
+      @user.firstname = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Firstname can't be blank")
+    end
+    it 'firstnamekanaが必須' do
+      @user.firstnamekana = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Firstnamekana can't be blank")
+    end
+    it 'lasttnameが必須' do
+      @user.lastname = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Lastname can't be blank")
+    end
+    it 'lastnamekanaが必須' do
+      @user.lastnamekana = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Lastnamekana can't be blank")
+    end
+    it 'birthdateが必須' do
+      @user.birthdate = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Birthdate can't be blank")
+    end
+    end
 end
