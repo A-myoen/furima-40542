@@ -1,16 +1,13 @@
-# spec/factories/users.rb
-require 'faker'
-
 FactoryBot.define do
   factory :user do
-    nickname { Faker::Name.name }
-    email { Faker::Internet.email }
-    password  {'1a' + Faker::Internet.password(min_length: 6)}
-    password_confirmation { password }
-    lastname { Faker::Name.last_name }
-    firstname { Faker::Name.first_name }
-    lastnamekana { Faker::Katakana.random(3) } # 全角カタカナの苗字
-    firstnamekana { Faker::Katakana.random(3) } # 全角カタカナの名前
-    birthdate { Faker::Date.birthday }
+    nickname              {Faker::Name.initials}
+    email       { Faker::Internet.email }
+    password              {'test1234'}
+    password_confirmation {'test1234'}
+    lastname             {'漢字'}
+    firstname            {'ひらがな'}
+    lastnamekana        {'カタカナ'}
+    firstnamekana       {'カタカナ'}
+    birthdate              {Faker::Date.between_except(from: 1.year.ago, to: 1.year.from_now, excepted: Date.today)}
   end
 end
