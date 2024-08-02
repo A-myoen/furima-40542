@@ -7,34 +7,34 @@ RSpec.describe User, type: :model do
 
   describe 'ユーザー新規登録' do
     context '新規登録が成功' do
-    it "全て満たせば登録できる" do
-      expect(@user).to be_valid
+      it "全て満たせば登録できる" do
+        expect(@user).to be_valid
+      end
+      it 'パスワードが6文字以上半角英数字であれば登録できる' do
+        @user.password = '123abc'
+        @user.password_confirmation = '123abc'
+        expect(@user).to be_valid
+      end
+      it 'lastnameあれば登録できる' do
+        @user.lastname = '山田'
+        expect(@user).to be_valid
+      end
+      it 'firstnameあれば登録できる' do
+        @user.firstname = '太郎'
+        expect(@user).to be_valid
+      end
+      it 'firstnamekanaが全角カタカナであれば登録できる' do
+        @user.firstnamekana = 'ヤマダ'
+        expect(@user).to be_valid
+      end
+      it 'lastnamekanaが全角カタカナであれば登録できる' do
+        @user.lastnamekana = 'タロウ'
+        expect(@user).to be_valid
+      end
     end
-    it 'パスワードが6文字以上半角英数字であれば登録できる' do
-      @user.password = '123abc'
-      @user.password_confirmation = '123abc'
-      expect(@user).to be_valid
-    end
-    it 'lastnameあれば登録できる' do
-      @user.lastname = '山田'
-      expect(@user).to be_valid
-    end
-    it 'firstnameあれば登録できる' do
-      @user.firstname = '太郎'
-      expect(@user).to be_valid
-    end
-    it 'firstnamekanaが全角カタカナであれば登録できる' do
-      @user.lastnamekana = 'ヤマダ'
-      expect(@user).to be_valid
-    end
-    it 'lastnamekanaが全角カタカナであれば登録できる' do
-      @user.firstnamekana = 'リクタロウ'
-      expect(@user).to be_valid
-    end
-  end
   end
 
-    context '新規登録がうまくかないとき' do
+  context '新規登録がうまくかないとき' do
     it "nicknameが必須であること" do
       @user.nickname = ''
       @user.valid?
@@ -153,5 +153,4 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Birthdate can't be blank")
     end
   end
-
 end
