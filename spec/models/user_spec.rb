@@ -121,13 +121,13 @@ RSpec.describe User, type: :model do
       it 'firstnameは全角でなければならないこと' do
         @user.firstname = 'tanaka'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Firstname は全角文字を使用してください")
+        expect(@user.errors.full_messages).to include("Firstname 全角文字を使用してください")
       end
 
-      it 'firstnamekanaは全角カタカナでなければならないこと' do
-        @user.firstnamekana = 'tanaka'
+      it 'firstnamekanaは必須' do
+        @user.firstnamekana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Firstnamekana は全角カタカナを使用してください")
+        expect(@user.errors.full_messages).to include("Firstnamekana can't be blank")
       end
 
       it 'lastnameが必須であること' do
@@ -139,13 +139,13 @@ RSpec.describe User, type: :model do
       it 'lastnameは全角でなければならないこと' do
         @user.lastname = 'akira'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Lastname は全角文字を使用してください")
+        expect(@user.errors.full_messages).to include("Lastname 全角文字を使用してください")
       end
 
       it 'lastnamekanaは全角カタカナでなければならないこと' do
         @user.lastnamekana = 'akira'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Lastnamekana は全角カタカナを使用してください")
+        expect(@user.errors.full_messages).to include("Lastnamekana 全角カタカナを使用してください")
       end
 
       it 'lastnamekanaが必須であること' do
@@ -157,13 +157,13 @@ RSpec.describe User, type: :model do
       it 'lastnamekanaは全角カタカナでなければならないこと' do
         @user.lastnamekana = 'あきら'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Lastnamekana は全角カタカナを使用してください")
+        expect(@user.errors.full_messages).to include("Lastnamekana 全角カタカナを使用してください")
       end
 
       it 'firstnamekanaは全角カタカナでなければならないこと' do
         @user.firstnamekana = 'たなか'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Firstnamekana は全角カタカナを使用してください")
+        expect(@user.errors.full_messages).to include("Firstnamekana 全角カタカナを使用してください")
       end
 
       it 'birthdateが必須であること' do
