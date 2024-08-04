@@ -22,8 +22,9 @@ class Item < ApplicationRecord
     validates :postage_id
     validates :price
   end
-
-  validates :category_id, :condition_id, :postage_id, :prefecture_id, :shippingcost_id,  numericality: { other_than: 1 , message: "can't be blank"} 
+  with_options numericality: { only_integer: true } do
+    validates :category_id, :condition_id, :postage_id, :prefecture_id, :shippingcost_id,  numericality: { other_than: 1 , message: "can't be blank"} 
   
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+  end
 end
