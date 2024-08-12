@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   def create
     @order_form = OrderForm.new(order_params)
     if  @order_form.valid?
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = 'sk_test_d9d2899f61a0eb78d4173235'
+    Payjp.api_key = 'pk_test_acfa30671855b11e318d0a0a'
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],

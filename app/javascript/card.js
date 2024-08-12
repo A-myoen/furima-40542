@@ -1,5 +1,5 @@
 const pay = () => {
-  const payjp = Payjp('pk_test_b9bd0f2921974e9ad0f753e8');
+  const payjp = Payjp('sk_test_c465cd5ac17d7c74fbf64435');
  
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
@@ -31,3 +31,4 @@ const pay = () => {
 };
 
 window.addEventListener("load", pay);
+window.addEventListener("render", pay);
