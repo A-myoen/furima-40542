@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :find_item, only: [:index, :create]
 
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     if current_user.id != @item.user_id && @item.order == nil
     @order_form = OrderForm.new
     else
@@ -33,7 +34,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = 'sk_test_9b5d03010b03fc605ccff0ac'
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
@@ -43,4 +44,5 @@ class OrdersController < ApplicationController
     # エラーハンドリング
     Rails.logger.error "Payjp::InvalidRequestError: #{e.message}"
   end
+
 end

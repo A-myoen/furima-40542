@@ -1,6 +1,7 @@
 const pay = () => {
-  const payjp = Payjp(process.env.PAYJP_PUBLIC_KEY);
- 
+  console.log("OK")
+  const payjp = Payjp('pk_test_4e742cfdd01f69dd45d2ed18');
+  
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
@@ -30,5 +31,5 @@ const pay = () => {
   });
 };
 
-window.addEventListener("turbo:load", price);
-window.addEventListener("turbo:render", price);
+window.addEventListener("turbo:load", pay);
+window.addEventListener("turbo:render", pay);
